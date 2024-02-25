@@ -9,3 +9,6 @@ MarkupSafe==2.1.5
 packaging==23.2
 Werkzeug==3.0.1
 zipp==3.17.0
+instructor~=0.4.8
+openai~=1.12.0
+pydantic~=2.6.2

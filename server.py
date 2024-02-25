@@ -1,11 +1,36 @@
 from flask import Flask, request, jsonify, render_template
+from openai import OpenAI
+import instructor
+from pydantic import BaseModel, Field
 
 app = Flask(__name__)
 
 
-def translate_text(text):
-    # Placeholder for actual translation logic
-    return f"Translated version of '{text}'"
+class Translation(BaseModel):
+    """
+    A class that represents the translation of a swiss german text.
+    """
+    translation: str = Field(..., description="A translation from swiss german to english.")
+
+
+def translate_text(text, openai_api_key=None):
+    if openai_api_key == "":
+        client = instructor.patch(OpenAI())
+    else:
+        client = instructor.patch(OpenAI(api_key=openai_api_key))
+
+    prompt = f"translate swiss german to english: {text}"
+
+    translated: Translation = client.chat.completions.create(
+        model="gpt-3.5-turbo-instruct",
+        response_model=Translation,
+        messages=[
+            {"role": "user", "content": prompt},
+        ],
+        max_retries=2,
+    )
+
+    return translated
 
 
 @app.route('/')
