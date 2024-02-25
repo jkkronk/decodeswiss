@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swiss German Translator</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+        }
+        h1 {
+            color: #d00;
+            text-align: center;
+        }
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        textarea, #translationOutput {
+            width: 300px;
+            height: 150px;
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px solid #d00;
+            border-radius: 5px;
+            background-color: #fff;
+            resize: none;
+        }
+        #translationOutput {
+            overflow-y: auto;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+        button {
+            cursor: pointer;
+            padding: 10px 20px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #d00;
+            color: #fff;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #b00;
+        }
+        .footer {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .footer a {
+            color: #d00;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+<body>
+    <h1>🇨🇭 Translate Swiss German 🇨🇭</h1>
+    <div id="container">
+        <textarea id="text" name="text"></textarea>
+        <button onclick="translateText()">Translate</button>
+        <div id="translationOutput">Translation will appear here...</div>
+    </div>
+    <!-- CHANGE THE LINKS BELOW -->
+    <div class="footer">
+        <a href="https://github.com/jkkronk/swissdic" target="_blank"><i class="fab fa-github"></i></a> |
+        <span>&copy; 2024 Jonatan Kronander. All rights reserved.</span> |
+        <a href="https://www.example.com" target="_blank">Learn Swiss German!</a> |
+        <a href="https://twitter.com/intent/tweet?text=Check+out+this+Swiss+German+Translator!&url=https://yourtranslatorapp.com" target="_blank"><i class="fab fa-twitter"></i></a> |
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://yourtranslatorapp.com" target="_blank"><i class="fab fa-facebook"></i></a> |
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yourtranslatorapp.com&title=Check+out+this+Swiss+German+Translator!&summary=Amazing+tool+for+translating+text+to+Swiss+German.&source=LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+
+    <script>
+        function translateText() {
+            var text = document.getElementById('text').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/translate", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    document.getElementById('translationOutput').textContent = response.translated_text;
+                }
+            };
+
+            var data = JSON.stringify({
+                "text": text
+            });
+            xhr.send(data);
+        }
+    </script>
+</body>
+</html>
