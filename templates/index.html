@@ -136,13 +136,8 @@
     <h1>🇨🇭 Swiss German Translator 🇨🇭</h1>
     <div id="container">
         <div class="input-text">
-            <!---
-            <div class="kanton" id="bernImageContainer" style="display: none">
-                <img id="bernImage" src="" alt="Bernese Dialect" style="position: absolute; width: 25px; height: 25px">
-            </div>
-            --->
             <div class="kanton" id="bernImageContainer">
-                <img id="bernImage" src="static/bern.png" alt="Bernese Dialect">
+                <img id="bernImage" src="/static/bern.png" alt="Bernese Dialect">
             </div>
             <label for="text"></label><textarea class="text" id="text" name="text"></textarea>
         </div>
@@ -210,14 +205,12 @@
                         }
 
                         // You can also check if the text is in Bernese dialect
-                        //if (response.is_bernese_dialect) {
-                            const bernImageContainer = document.getElementById('bernImageContainer');
+                        if (response.is_bernese_dialect) { // this is not working. Why?
                             const bernImage = document.getElementById('bernImage');
-                            bernImage.src = 'static/bern.png';
                             bernImage.style.visibility = 'visible';
-                        //} else {
-                        //    bernImage.style.visibility = 'hidden';
-                        //}
+                        } else {
+                            bernImage.style.visibility = 'hidden';
+                        }
 
                     } else {
                         output.textContent = 'Translation failed. Please try again.';

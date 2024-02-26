@@ -73,7 +73,8 @@ def translate():
         'original_text': text_to_translate,
         'en_translation': result.en_translation,
         'de_translation': result.de_translation,
-        'is_swiss_german': result.is_swiss_german
+        'is_swiss_german': result.is_swiss_german,
+        'is_bernese_dialect': result.is_bernese_dialect,
     })
 
 
