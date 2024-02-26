@@ -42,13 +42,35 @@
         .text {
             width: 400px;
             height: 200px;
-            margin: 43px 10px 10px;
+            margin: 16px 10px 10px;
             padding: 10px;
             border: 2px solid #d00;
             border-radius: 5px;
             background-color: #fff;
             resize: none;
             font-size: 16px;
+        }
+        .input-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 16px;
+        }
+        .kanton {
+            position: relative;
+            margin: 15px 10px 0;
+            flex-direction: row;
+            align-items: start;
+            align-self: flex-start;
+            min-height: 25px;
+        }
+        #bernImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
         }
         .output-text {
             display: flex;
@@ -85,7 +107,7 @@
             background-color: #f2f2f2;
             border-radius: 5px;
             color: #fff;
-            font-size: 20px;
+            font-size: 30px;
             transition: background-color 0.3s ease;
         }
         .lan_button:hover {
@@ -113,7 +135,17 @@
 <body>
     <h1>🇨🇭 Swiss German Translator 🇨🇭</h1>
     <div id="container">
-        <label for="text"></label><textarea class="text" id="text" name="text"></textarea>
+        <div class="input-text">
+            <!---
+            <div class="kanton" id="bernImageContainer" style="display: none">
+                <img id="bernImage" src="" alt="Bernese Dialect" style="position: absolute; width: 25px; height: 25px">
+            </div>
+            --->
+            <div class="kanton" id="bernImageContainer">
+                <img id="bernImage" src="static/bern.png" alt="Bernese Dialect">
+            </div>
+            <label for="text"></label><textarea class="text" id="text" name="text"></textarea>
+        </div>
         <button class="translate-button" onclick="translateText()">Translate</button>
         <div class="output-text">
             <div class="lan-buttons-area">
@@ -167,8 +199,7 @@
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
 
-                        const is_swiss_german = response.is_swiss_german;
-                        if (is_swiss_german) {
+                        if (response.is_swiss_german) {
                             // Save translations to the global object
                             translations.en = response.en_translation;
                             translations.de = response.de_translation;
@@ -177,6 +208,16 @@
                         } else {
                             output.textContent = 'Translation failed. Are you sure this is swiss german?';
                         }
+
+                        // You can also check if the text is in Bernese dialect
+                        //if (response.is_bernese_dialect) {
+                            const bernImageContainer = document.getElementById('bernImageContainer');
+                            const bernImage = document.getElementById('bernImage');
+                            bernImage.src = 'static/bern.png';
+                            bernImage.style.visibility = 'visible';
+                        //} else {
+                        //    bernImage.style.visibility = 'hidden';
+                        //}
 
                     } else {
                         output.textContent = 'Translation failed. Please try again.';
