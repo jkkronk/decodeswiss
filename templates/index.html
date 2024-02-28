@@ -20,32 +20,53 @@
         }
         #container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
             padding: 20px;
             background-color: #f2f2f2;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         textarea, #translationOutput {
-            width: 300px;
-            height: 150px;
-            margin: 10px 0;
+            width: 400px;
+            height: 200px;
+            margin: 10px;
             padding: 10px;
             border: 2px solid #d00;
             border-radius: 5px;
             background-color: #fff;
             resize: none;
+            font-size: 16px;
         }
-        #translationOutput {
-            overflow-y: auto;
-            font-family: Arial, sans-serif;
-            color: #333;
+        .text {
+            width: 400px;
+            height: 200px;
+            margin: 43px 10px 10px;
+            padding: 10px;
+            border: 2px solid #d00;
+            border-radius: 5px;
+            background-color: #fff;
+            resize: none;
+            font-size: 16px;
+        }
+        .output-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 16px;
+        }
+        .lan-buttons-area {
+            flex-direction: row;
+            align-items: start;
+            align-self: flex-start;
         }
         button {
             cursor: pointer;
+        }
+        .translate-button{
             padding: 10px 20px;
-            margin: 20px 0;
+            margin: 120px 20px 0;
             border: none;
             border-radius: 5px;
             background-color: #d00;
@@ -53,8 +74,22 @@
             font-size: 16px;
             transition: background-color 0.3s ease;
         }
-        button:hover {
+        .translate-button:hover {
             background-color: #b00;
+        }
+        .lan_button {
+            align-items: start;
+            cursor: pointer;
+            padding: 5px 10px;
+            border: none;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .lan_button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
         }
         .footer {
             width: 100%;
@@ -78,9 +113,15 @@
 <body>
     <h1>🇨🇭 Swiss German Translator 🇨🇭</h1>
     <div id="container">
-        <textarea id="text" name="text"></textarea>
-        <button onclick="translateText()">Translate</button>
-        <div id="translationOutput"> </div>
+        <label for="text"></label><textarea class="text" id="text" name="text"></textarea>
+        <button class="translate-button" onclick="translateText()">Translate</button>
+        <div class="output-text">
+            <div class="lan-buttons-area">
+                <button class="lan_button" onclick="setLanguage('en')">🇬🇧</button>
+                <button class="lan_button" onclick="setLanguage('de')">🇩🇪</button>
+            </div>
+            <div id="translationOutput"></div>
+        </div>
     </div>
     <!-- CHANGE THE LINKS BELOW -->
     <div class="footer">
@@ -93,23 +134,57 @@
     </div>
 
     <script>
+        var selectedLanguage = 'en'; // Default language
+        var translations = {}; // This will hold the translations
+
+        function setLanguage(language) {
+            selectedLanguage = language;
+            // Check if translations exist before trying to update the output
+            if (translations.en && translations.de) {
+                var output = document.getElementById('translationOutput');
+                output.textContent = selectedLanguage === 'en' ? translations.en : translations.de;
+            }
+        }
+
+
         function translateText() {
             var text = document.getElementById('text').value;
+            var output = document.getElementById('translationOutput');
+            output.textContent = 'Translating.';
+
+            var loadingInterval = setInterval(function() {
+                output.textContent += '.';
+                if(output.textContent.length > 14) output.textContent = 'Translating';
+            }, 500);
 
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/translate", true);
             xhr.setRequestHeader("Content-Type", "application/json");
 
             xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    document.getElementById('translationOutput').textContent = response.en_translation;
+                if (xhr.readyState === 4) {
+                    clearInterval(loadingInterval);
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+
+                        const is_swiss_german = response.is_swiss_german;
+                        if (is_swiss_german) {
+                            // Save translations to the global object
+                            translations.en = response.en_translation;
+                            translations.de = response.de_translation;
+                            // Display based on the selected language
+                            output.textContent = selectedLanguage === 'en' ? translations.en : translations.de;
+                        } else {
+                            output.textContent = 'Translation failed. Are you sure this is swiss german?';
+                        }
+
+                    } else {
+                        output.textContent = 'Translation failed. Please try again.';
+                    }
                 }
             };
 
-            var data = JSON.stringify({
-                "text": text
-            });
+            var data = JSON.stringify({"text": text});
             xhr.send(data);
         }
     </script>

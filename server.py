@@ -12,8 +12,25 @@ class Translation(BaseModel):
     """
     en_translation: str = Field(..., description="Translation from swiss german to english.")
     de_translation: str = Field(..., description="Translation from swiss german to high german.")
-    regional_dialect: str = Field(..., description="The regional dialect of the swiss german text.")
-    is_swiss_german: bool = Field(..., description="Whether the input text is swiss german.")
+    is_swiss_german: bool = Field(True, description="True if input text is in swiss german, else false.")
+    is_bernese_dialect: bool = True #Field(False, description="True if input text could be in bernese dialect, else false.")
+    is_basel_dialect: bool = Field(False, description="True if input text could be in basel dialect, else false.")
+    is_solothurn_dialect: bool = Field(False, description="True if input text could be in solothurn dialect, else false.")
+    is_aargau_dialect: bool = Field(False, description="True if input text could be in aargau dialect, else false.")
+    is_lucerne_dialect: bool = Field(False, description="True if input text could be in lucerne dialect, else false.")
+    is_zug_dialect: bool = Field(False, description="True if input text is could be zug dialect, else false.")
+    is_zurich_dialect: bool = Field(False, description="True if input text is could be zurich dialect, else false.")
+    is_stgallen_dialect: bool = Field(False, description="True if input text is could be st. gallen dialect, else false.")
+    is_thurgau_dialect: bool = Field(False, description="True if input text is could be thurgau dialect, else false.")
+    is_appenzell_dialect: bool = Field(False, description="True if input text is could be appenzell dialect, else false.")
+    is_schaffhausen_dialect: bool = Field(False, description="True if input text could be in schaffhausen dialect, else false.")
+    is_grisons_dialect: bool = Field(False, description="True if input text could be in grisons dialect, else false.")
+    is_wallis_dialect: bool = Field(False, description="True if input text could be in wallis dialect, else false.")
+    is_glarus_dialect: bool = Field(False, description="True if input text could be in glarus dialect, else false.")
+    is_uri_dialect: bool = Field(False, description="True if input text is could be uri dialect, else false.")
+    is_schwyz_dialect: bool = Field(False, description="True if input text is could be schwyz dialect, else false.")
+    is_obwalden_dialect: bool = Field(False, description="True if input text is could be obwalden or nidwalden dialect, else false.")
+
 
 def translate_text(text, openai_api_key=None):
     if openai_api_key == "":
@@ -21,7 +38,9 @@ def translate_text(text, openai_api_key=None):
     else:
         client = instructor.patch(OpenAI(api_key=openai_api_key))
 
-    prompt = f"Translate this swiss german to english: {text}. If possible also indicate the regional dialect."
+    prompt = (f"Translate this swiss german to english and german: {text}. "
+              f"If possible also indicate the regional dialect."
+              f"Also indicate if the input text is in swiss german.")
 
     translated: Translation = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -54,7 +73,6 @@ def translate():
         'original_text': text_to_translate,
         'en_translation': result.en_translation,
         'de_translation': result.de_translation,
-        'regional_dialect': result.regional_dialect,
         'is_swiss_german': result.is_swiss_german
     })
 
