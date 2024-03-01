@@ -72,6 +72,142 @@
             left: 0;
             visibility: hidden;
         }
+        #baselImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #solothurnImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #aargauImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #lucerneImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #zugImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #zurichImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #zurichImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #stgallenImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #thurgauImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #appenzellImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #schaffhausenImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #grisonsImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #wallisImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #glarusImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #uriImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #schwyzImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
+        #obwaldenImage {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+        }
         .output-text {
             display: flex;
             flex-direction: column;
@@ -136,8 +272,24 @@
     <h1>🇨🇭 Swiss German Translator 🇨🇭</h1>
     <div id="container">
         <div class="input-text">
-            <div class="kanton" id="bernImageContainer">
+            <div class="kanton" id="imageContainer">
                 <img id="bernImage" src="/static/bern.png" alt="Bernese Dialect">
+                <img id="baselImage" src="/static/basel.png" alt="Basel Dialect">
+                <img id="solothurnImage" src="/static/solothurn.png" alt="Solothurn Dialect">
+                <img id="aargauImage" src="/static/aargau.png" alt="Aargau Dialect">
+                <img id="lucerneImage" src="/static/lucerne.png" alt="Lucerne Dialect">
+                <img id="zugImage" src="/static/zug.png" alt="Zug Dialect">
+                <img id="zurichImage" src="/static/zurich.png" alt="Zurich Dialect">
+                <img id="stgallenImage" src="/static/stgallen.png" alt="St. Gallen Dialect">
+                <img id="thurgauImage" src="/static/thurgau.png" alt="Thurgau Dialect">
+                <img id="appenzellImage" src="/static/appenzell.png" alt="Appenzell Dialect">
+                <img id="schaffhausenImage" src="/static/schaffhausen.png" alt="Schaffhausen Dialect">
+                <img id="grisonsImage" src="/static/grisons.png" alt="Grisons Dialect">
+                <img id="wallisImage" src="/static/wallis.png" alt="Wallis Dialect">
+                <img id="glarusImage" src="/static/glarus.png" alt="Glarus Dialect">
+                <img id="uriImage" src="/static/uri.png" alt="Uri Dialect">
+                <img id="schwyzImage" src="/static/schwyz.png" alt="Schwyz Dialect">
+                <img id="obwaldenImage" src="/static/obwalden.png" alt="Obwalden Dialect">
             </div>
             <label for="text"></label><textarea class="text" id="text" name="text"></textarea>
         </div>
@@ -204,13 +356,24 @@
                             output.textContent = 'Translation failed. Are you sure this is swiss german?';
                         }
 
-                        // You can also check if the text is in Bernese dialect
-                        if (response.is_bernese_dialect) { // this is not working. Why?
-                            const bernImage = document.getElementById('bernImage');
-                            bernImage.style.visibility = 'visible';
-                        } else {
-                            bernImage.style.visibility = 'hidden';
-                        }
+                        resetDialectImagesVisibilityAndPosition();
+                        handleDialectImageVisibilityAndPosition('bernImage', response.is_bernese_dialect);
+                        handleDialectImageVisibilityAndPosition('baselImage', response.is_basel_dialect);
+                        handleDialectImageVisibilityAndPosition('solothurnImage', response.is_solothurn_dialect);
+                        handleDialectImageVisibilityAndPosition('aargauImage', response.is_aargau_dialect);
+                        handleDialectImageVisibilityAndPosition('lucerneImage', response.is_lucerne_dialect);
+                        handleDialectImageVisibilityAndPosition('zugImage', response.is_zug_dialect);
+                        handleDialectImageVisibilityAndPosition('zurichImage', response.is_zurich_dialect);
+                        handleDialectImageVisibilityAndPosition('stgallenImage', response.is_stgallen_dialect);
+                        handleDialectImageVisibilityAndPosition('thurgauImage', response.is_thurgau_dialect);
+                        handleDialectImageVisibilityAndPosition('appenzellImage', response.is_appenzell_dialect);
+                        handleDialectImageVisibilityAndPosition('schaffhausenImage', response.is_schaffhausen_dialect);
+                        handleDialectImageVisibilityAndPosition('grisonsImage', response.is_grisons_dialect);
+                        handleDialectImageVisibilityAndPosition('wallisImage', response.is_wallis_dialect);
+                        handleDialectImageVisibilityAndPosition('glarusImage', response.is_glarus_dialect);
+                        handleDialectImageVisibilityAndPosition('uriImage', response.is_uri_dialect);
+                        handleDialectImageVisibilityAndPosition('schwyzImage', response.is_schwyz_dialect);
+                        handleDialectImageVisibilityAndPosition('obwaldenImage', response.is_obwalden_dialect);
 
                     } else {
                         output.textContent = 'Translation failed. Please try again.';
@@ -220,6 +383,31 @@
 
             var data = JSON.stringify({"text": text});
             xhr.send(data);
+        }
+
+        function resetDialectImagesVisibilityAndPosition() {
+            const dialectImages = ['bernImage', 'baselImage', 'solothurnImage', 'aargauImage', 'lucerneImage',
+            'zugImage', 'zurichImage', 'stgallenImage', 'thurgauImage', 'appenzellImage', 'schaffhausenImage',
+            'grisonsImage', 'wallisImage', 'glarusImage', 'uriImage', 'schwyzImage', 'obwaldenImage'];
+            dialectImages.forEach((id) => {
+                const img = document.getElementById(id);
+                img.style.visibility = 'hidden';
+                img.style.left = '0'; // Reset position if dynamically changing
+            });
+        }
+
+        function handleDialectImageVisibilityAndPosition(id, isVisible) {
+            const img = document.getElementById(id);
+            if (isVisible) {
+                img.style.visibility = 'visible';
+                // Dynamically adjust the left position based on visible images
+                // This is a simplistic approach; you might need a more dynamic calculation based on the actual visible images
+                const visibleImages = document.querySelectorAll('#imageContainer img[style*="visible"]');
+                const offset = visibleImages.length * 30 - 30; // Assuming each image is 25px wide + 5px gap
+                img.style.left = `${offset}px`;
+            } else {
+                img.style.visibility = 'hidden';
+            }
         }
     </script>
 </body>
