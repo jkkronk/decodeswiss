@@ -42,7 +42,7 @@
         .text {
             width: 400px;
             height: 200px;
-            margin: 16px 10px 10px;
+            margin: 2px 10px 10px;
             padding: 10px;
             border: 2px solid #d00;
             border-radius: 5px;
@@ -58,153 +58,154 @@
         }
         .kanton {
             position: relative;
-            margin: 15px 10px 0;
+            margin: 0px 10px 0;
             flex-direction: row;
             align-items: start;
             align-self: flex-start;
-            min-height: 25px;
+            min-height: 20px;
+            font-size: 40px;
         }
         #bernImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #baselImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #solothurnImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #aargauImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #lucerneImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #zugImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #zurichImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #zurichImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #stgallenImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #thurgauImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #appenzellImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #schaffhausenImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #grisonsImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #wallisImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #glarusImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #uriImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #schwyzImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
         #obwaldenImage {
             position: absolute;
-            width: 25px;
-            height: 25px;
-            top: 0;
+            width: 20px;
+            height: 20px;
+            top: 13px;
             left: 0;
             visibility: hidden;
         }
@@ -273,6 +274,7 @@
     <div id="container">
         <div class="input-text">
             <div class="kanton" id="imageContainer">
+                🇨🇭
                 <img id="bernImage" src="/static/bern.png" alt="Bernese Dialect">
                 <img id="baselImage" src="/static/basel.png" alt="Basel Dialect">
                 <img id="solothurnImage" src="/static/solothurn.png" alt="Solothurn Dialect">
@@ -415,7 +417,7 @@
                 // Dynamically adjust the left position based on visible images
                 // This is a simplistic approach; you might need a more dynamic calculation based on the actual visible images
                 const visibleImages = document.querySelectorAll('#imageContainer img[style*="visible"]');
-                const offset = visibleImages.length * 30 - 30; // Assuming each image is 25px wide + 5px gap
+                const offset = visibleImages.length * 25 + 10; // Assuming each image is 25px wide + 5px gap
                 img.style.left = `${offset}px`;
             } else {
                 img.style.visibility = 'hidden';
