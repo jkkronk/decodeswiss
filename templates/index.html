@@ -361,6 +361,7 @@
                         if (response.error) {
                             // Display the error message
                             output.textContent = response.error;
+                            resetDialectImagesVisibilityAndPosition()
                         } if (response.is_swiss_german) {
                             // Save translations to the global object
                             translations.en = response.en_translation;
@@ -387,9 +388,11 @@
                             handleDialectImageVisibilityAndPosition('schwyzImage', response.is_schwyz_dialect);
                             handleDialectImageVisibilityAndPosition('obwaldenImage', response.is_obwalden_dialect);
                         } else {
+                            resetDialectImagesVisibilityAndPosition()
                             output.textContent = 'Translation failed. Are you sure this is swiss german?';
                         }
                     } else {
+                        resetDialectImagesVisibilityAndPosition()
                         output.textContent = 'Translation failed. Please try again.';
                     }
                 }
