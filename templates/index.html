@@ -316,6 +316,16 @@
         var selectedLanguage = 'en'; // Default language
         var translations = {}; // This will hold the translations
 
+        document.getElementById('text').addEventListener('keydown', function(event) {
+            var key = event.key || event.keyCode;
+            if (key === 'Enter' || key === 13) {
+                if (!event.shiftKey) { // Prevents the default action of Enter only if Shift is not pressed
+                    event.preventDefault();
+                    translateText(); // Calls your translate function
+                }
+            }
+        });
+
         function setLanguage(language) {
             selectedLanguage = language;
             // Check if translations exist before trying to update the output
