@@ -72,6 +72,14 @@
             min-height: 20px;
             font-size: 40px;
         }
+        #swissWideImage {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 13px;
+            left: 0;
+            visibility: hidden;
+        }
         #bernImage {
             position: absolute;
             width: 20px;
@@ -288,6 +296,7 @@
         <div class="input-text">
             <div class="kanton" id="imageContainer">
                 🇨🇭
+                <img id="swissWideImage" src="/static/swiss_all.png" alt="Swiss Wide">
                 <img id="bernImage" src="/static/bern.png" alt="Bernese Dialect">
                 <img id="baselImage" src="/static/basel.png" alt="Basel Dialect">
                 <img id="solothurnImage" src="/static/solothurn.png" alt="Solothurn Dialect">
@@ -381,25 +390,38 @@
                             translations.de = response.de_translation;
                             // Display based on the selected language
                             output.textContent = selectedLanguage === 'en' ? translations.en : translations.de;
-                            // Correct dialect/kantonal images
+
                             resetDialectImagesVisibilityAndPosition();
-                            handleDialectImageVisibilityAndPosition('bernImage', response.is_bernese_dialect);
-                            handleDialectImageVisibilityAndPosition('baselImage', response.is_basel_dialect);
-                            handleDialectImageVisibilityAndPosition('solothurnImage', response.is_solothurn_dialect);
-                            handleDialectImageVisibilityAndPosition('aargauImage', response.is_aargau_dialect);
-                            handleDialectImageVisibilityAndPosition('lucerneImage', response.is_lucerne_dialect);
-                            handleDialectImageVisibilityAndPosition('zugImage', response.is_zug_dialect);
-                            handleDialectImageVisibilityAndPosition('zurichImage', response.is_zurich_dialect);
-                            handleDialectImageVisibilityAndPosition('stgallenImage', response.is_stgallen_dialect);
-                            handleDialectImageVisibilityAndPosition('thurgauImage', response.is_thurgau_dialect);
-                            handleDialectImageVisibilityAndPosition('appenzellImage', response.is_appenzell_dialect);
-                            handleDialectImageVisibilityAndPosition('schaffhausenImage', response.is_schaffhausen_dialect);
-                            handleDialectImageVisibilityAndPosition('grisonsImage', response.is_grisons_dialect);
-                            handleDialectImageVisibilityAndPosition('wallisImage', response.is_wallis_dialect);
-                            handleDialectImageVisibilityAndPosition('glarusImage', response.is_glarus_dialect);
-                            handleDialectImageVisibilityAndPosition('uriImage', response.is_uri_dialect);
-                            handleDialectImageVisibilityAndPosition('schwyzImage', response.is_schwyz_dialect);
-                            handleDialectImageVisibilityAndPosition('obwaldenImage', response.is_obwalden_dialect);
+                            if (response.is_bernese_dialect && response.is_basel_dialect
+                                && response.is_solothurn_dialect && response.is_aargau_dialect
+                                && response.is_lucerne_dialect && response.is_zug_dialect
+                                && response.is_zurich_dialect && response.is_stgallen_dialect
+                                && response.is_thurgau_dialect && response.is_appenzell_dialect
+                                && response.is_schaffhausen_dialect && response.is_grisons_dialect
+                                && response.is_wallis_dialect && response.is_glarus_dialect
+                                && response.is_uri_dialect && response.is_schwyz_dialect
+                                && response.is_obwalden_dialect) {
+                                // if all dialects are true then shown swiss wide
+                                handleDialectImageVisibilityAndPosition('swissWideImage', true);
+                            } else {
+                                handleDialectImageVisibilityAndPosition('bernImage', response.is_bernese_dialect);
+                                handleDialectImageVisibilityAndPosition('baselImage', response.is_basel_dialect);
+                                handleDialectImageVisibilityAndPosition('solothurnImage', response.is_solothurn_dialect);
+                                handleDialectImageVisibilityAndPosition('aargauImage', response.is_aargau_dialect);
+                                handleDialectImageVisibilityAndPosition('lucerneImage', response.is_lucerne_dialect);
+                                handleDialectImageVisibilityAndPosition('zugImage', response.is_zug_dialect);
+                                handleDialectImageVisibilityAndPosition('zurichImage', response.is_zurich_dialect);
+                                handleDialectImageVisibilityAndPosition('stgallenImage', response.is_stgallen_dialect);
+                                handleDialectImageVisibilityAndPosition('thurgauImage', response.is_thurgau_dialect);
+                                handleDialectImageVisibilityAndPosition('appenzellImage', response.is_appenzell_dialect);
+                                handleDialectImageVisibilityAndPosition('schaffhausenImage', response.is_schaffhausen_dialect);
+                                handleDialectImageVisibilityAndPosition('grisonsImage', response.is_grisons_dialect);
+                                handleDialectImageVisibilityAndPosition('wallisImage', response.is_wallis_dialect);
+                                handleDialectImageVisibilityAndPosition('glarusImage', response.is_glarus_dialect);
+                                handleDialectImageVisibilityAndPosition('uriImage', response.is_uri_dialect);
+                                handleDialectImageVisibilityAndPosition('schwyzImage', response.is_schwyz_dialect);
+                                handleDialectImageVisibilityAndPosition('obwaldenImage', response.is_obwalden_dialect);
+                            }
                         } else {
                             resetDialectImagesVisibilityAndPosition()
                             output.textContent = 'Translation failed. Are you sure this is swiss german?';
@@ -416,7 +438,7 @@
         }
 
         function resetDialectImagesVisibilityAndPosition() {
-            const dialectImages = ['bernImage', 'baselImage', 'solothurnImage', 'aargauImage', 'lucerneImage',
+            const dialectImages = ['swissWideImage', 'bernImage', 'baselImage', 'solothurnImage', 'aargauImage', 'lucerneImage',
             'zugImage', 'zurichImage', 'stgallenImage', 'thurgauImage', 'appenzellImage', 'schaffhausenImage',
             'grisonsImage', 'wallisImage', 'glarusImage', 'uriImage', 'schwyzImage', 'obwaldenImage'];
             dialectImages.forEach((id) => {
