@@ -57,6 +57,12 @@
             align-items: center;
             font-size: 16px;
         }
+        .output-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 16px;
+        }
         .kanton {
             position: relative;
             margin: 0px 10px 0;
@@ -210,12 +216,6 @@
             left: 0;
             visibility: hidden;
         }
-        .output-text {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 16px;
-        }
         .lan-buttons-area {
             flex-direction: row;
             align-items: start;
@@ -271,11 +271,8 @@
             #container {
                 flex-direction: column; /* Changes layout to vertical on mobile */
             }
-            textarea, #translationOutput, .text {
-                width: 90%; /* Adjust width to fit smaller screens */
-            }
             .translate-button {
-                margin: 20px auto; /* Center button and add margin on mobile */
+                margin: 20px auto;
             }
         }
     }
