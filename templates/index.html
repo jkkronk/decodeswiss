@@ -267,6 +267,27 @@
         .footer a:hover {
             text-decoration: underline;
         }
+        @media (max-width: 768px) {
+        #container {
+            flex-direction: column;
+        }
+        textarea, #translationOutput, .text {
+            width: 90%; /* Adjust width for smaller screens */
+            margin: 10px auto; /* Center align */
+        }
+        .kanton, .lan-buttons-area {
+            justify-content: center;
+            margin: 10px auto; /* Center align for mobile */
+        }
+        .translate-button, .lan_button {
+            font-size: 14px; /* Adjust button font size */
+            padding: 5px 10px; /* Adjust button padding */
+        }
+        .kanton img {
+            width: 15px; /* Adjust image size */
+            height: 15px; /* Adjust image size */
+        }
+    }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
