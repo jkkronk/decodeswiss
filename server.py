@@ -150,7 +150,7 @@ def translate():
         'en_translation': result.en_translation,
         'de_translation': result.de_translation,
         'is_swiss_german': result.is_swiss_german,
-        'is_bernese_dialect': True, #list2bool(result.dialects, 'bern'),
+        'is_bernese_dialect': list2bool(result.dialects, 'bern'),
         'is_basel_dialect': list2bool(result.dialects, 'basel'),
         'is_solothurn_dialect': list2bool(result.dialects, 'solothurn'),
         'is_aargau_dialect': list2bool(result.dialects, 'aargau'),
