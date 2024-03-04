@@ -392,15 +392,27 @@
                             output.textContent = selectedLanguage === 'en' ? translations.en : translations.de;
 
                             resetDialectImagesVisibilityAndPosition();
-                            if (response.is_bernese_dialect && response.is_basel_dialect
-                                && response.is_solothurn_dialect && response.is_aargau_dialect
-                                && response.is_lucerne_dialect && response.is_zug_dialect
-                                && response.is_zurich_dialect && response.is_stgallen_dialect
-                                && response.is_thurgau_dialect && response.is_appenzell_dialect
-                                && response.is_schaffhausen_dialect && response.is_grisons_dialect
-                                && response.is_wallis_dialect && response.is_glarus_dialect
-                                && response.is_uri_dialect && response.is_schwyz_dialect
-                                && response.is_obwalden_dialect) {
+
+                            let count = 0;
+                            if (response.is_bernese_dialect) count++;
+                            if (response.is_basel_dialect) count++;
+                            if (response.is_solothurn_dialect) count++;
+                            if (response.is_aargau_dialect) count++;
+                            if (response.is_lucerne_dialect) count++;
+                            if (response.is_zug_dialect) count++;
+                            if (response.is_zurich_dialect) count++;
+                            if (response.is_stgallen_dialect) count++;
+                            if (response.is_thurgau_dialect) count++;
+                            if (response.is_appenzell_dialect) count++;
+                            if (response.is_schaffhausen_dialect) count++;
+                            if (response.is_grisons_dialect) count++;
+                            if (response.is_wallis_dialect) count++;
+                            if (response.is_glarus_dialect) count++;
+                            if (response.is_uri_dialect) count++;
+                            if (response.is_schwyz_dialect) count++;
+                            if (response.is_obwalden_dialect) count++;
+
+                            if (count > 5) {
                                 // if all dialects are true then shown swiss wide
                                 handleDialectImageVisibilityAndPosition('swissWideImage', true);
                             } else {
