@@ -73,7 +73,12 @@ def translate_text(text, openai_api_key=None):
               f"en_translation: 'I'm going shopping and I'm buying a table soccer game.'"
               f"de_translation: 'Ich gehe einkaufen und ich kaufe ein Tischfussballspiel.'"
               f"is_swiss_german: True"
-              f"dialects: ['zurich']")
+              f"dialects: ['zurich']"
+              f"Here is another example of an input text: 'Bischt au nüd tschold as s Bolve chlepft'"
+              f"en_translation: 'You're not exactly intelligent'"
+              f"de_translation: 'Du bist nicht gerade intelligent'"
+              f"is_swiss_german: True"
+              f"dialects: ['appenzell']")
 
     translated: Translation = client.chat.completions.create(
         model="gpt-3.5-turbo",
