@@ -199,7 +199,7 @@ def check_and_update_count():
     if (datetime.now().date() - last_reset).days >= 1:
         data = {'count': 0, 'last_reset': str(datetime.now().date())}
 
-    if data['count'] >= 150:
+    if data['count'] >= 600:
         return False
 
     data['count'] += 1
