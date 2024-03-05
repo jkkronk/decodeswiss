@@ -60,12 +60,20 @@ def translate_text(text, openai_api_key=None):
 
     prompt = (f"Translate this swiss german to english and german: {text}. "
               f"Indicate True if the input text is in swiss german. If you can't tell it probably should be False."
-              f"Indicate what dialect the input text could be. The format is a list "
-              f"of most likely dialect or dialects. For example 'hoi zäme' it should be ['zurich']. "
-              f"Or for example for 'Zum Znüni hät's feine Schoggigipfeli gha, da chame würkli nid klage.' "
-              f"Should the answer be ['bern'] but for 'Mir göhn später in d'Stadt zum e bitzeli shoppe.' the answer"
-              f"could be ['basel', 'solothurn', 'zurich']. wallis is called wallis and graubunden is called grisons. "
-              f"If you get it right you will get a bonus.")
+              f"Indicate what dialect the input text could be. Wallis is called wallis and graubunden is called grisons. "
+              f"If it could be any dialect or it is in general swiss german, list it as ['general']."
+              f"If you get it right you will get a bonus."
+              f""
+              f"Here is an example of an input text: 'Zum Znüni hät's feine Schoggigipfeli gha, da chame würkli nid klage.'"
+              f"en_translation: 'For the morning snack, there were delicious chocolate croissants, you really can't complain.'"
+              f"de_translation: 'Zum Frühstückssnack gab es leckere Schokoladencroissants, da kann man wirklich nicht klagen.'"
+              f"is_swiss_german: True"
+              f"dialects: ['general']"
+              f"Here is another example of an input text: 'Ich gang go poschte und ich chauf e Töggeli.'"
+              f"en_translation: 'I'm going shopping and I'm buying a table soccer game.'"
+              f"de_translation: 'Ich gehe einkaufen und ich kaufe ein Tischfussballspiel.'"
+              f"is_swiss_german: True"
+              f"dialects: ['zurich']")
 
     translated: Translation = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -163,7 +171,8 @@ def list2bool(dialects, city):
     dialects = [dialect.replace(' ', '') for dialect in dialects]
     dialects = [dialect.replace('.', '') for dialect in dialects]
     dialects = [dialect.replace('-', '') for dialect in dialects]
-    if city in dialects:
+
+    if city in dialects or 'general' in dialects:
         return True
     return False
 
