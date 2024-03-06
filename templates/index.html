@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swiss German Translator</title>
+    <link rel="icon" type="image/png" href="/static/swiss.png">
     <style>
         body {
             display: flex;
@@ -307,23 +308,23 @@
     <!-- CHANGE THE LINKS BELOW -->
     <div class="footer">
         <a href="https://github.com/jkkronk/swissdic" target="_blank"><i class="fab fa-github"></i></a> |
-        <span>&copy; 2024 Jonatan Kronander. All rights reserved.</span> |
-        <a href="https://www.example.com" target="_blank">Learn Swiss German!</a> |
-        <a href="https://twitter.com/intent/tweet?text=Check+out+this+Swiss+German+Translator!&url=https://yourtranslatorapp.com" target="_blank"><i class="fab fa-twitter"></i></a> |
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://yourtranslatorapp.com" target="_blank"><i class="fab fa-facebook"></i></a> |
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://yourtranslatorapp.com&title=Check+out+this+Swiss+German+Translator!&summary=Amazing+tool+for+translating+text+to+Swiss+German.&source=LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <span>&copy; 2024 All rights reserved<a href="mailto:jonatan.kronander+swiss@gmail.com">Jonatan Kronander</a></span> |
+        <a href="https://preply.com/en/?pref=NzkxMDA1OA==&id=1709498588.186948" target="_blank">Learn Swiss German!</a> |
+        <a href="https://twitter.com/intent/tweet?text=Check+out+this+Swiss+German+Translator!&url=https://swissdic.onrender.com" target="_blank"><i class="fab fa-twitter"></i></a> |
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://swissdic.onrender.com" target="_blank"><i class="fab fa-facebook"></i></a> |
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://swissdic.onrender.com&title=Check+out+this+Swiss+German+Translator!&summary=Amazing+tool+for+translating+text+to+Swiss+German.&source=LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
     </div>
 
     <script>
         var selectedLanguage = 'en'; // Default language
-        var translations = {}; // This will hold the translations
+        var translations = {};
 
         document.getElementById('text').addEventListener('keydown', function(event) {
             var key = event.key || event.keyCode;
             if (key === 'Enter' || key === 13) {
-                if (!event.shiftKey) { // Prevents the default action of Enter only if Shift is not pressed
+                if (!event.shiftKey) { // Ignore shift+enter
                     event.preventDefault();
-                    translateText(); // Calls your translate function
+                    translateText();
                 }
             }
         });
@@ -420,7 +421,7 @@
                 // Dynamically adjust the left position based on visible images
                 // This is a simplistic approach; you might need a more dynamic calculation based on the actual visible images
                 const visibleImages = document.querySelectorAll('#imageContainer img[style*="visible"]');
-                const offset = visibleImages.length * 25 + 10; // Assuming each image is 25px wide + 5px gap
+                const offset = visibleImages.length * 25 + 10; // Assuming each image is 20px wide + 5px gap
                 img.style.left = `${offset}px`;
             } else {
                 img.style.visibility = 'hidden';
