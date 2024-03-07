@@ -57,34 +57,11 @@ def translate_text(text, openai_api_key=None):
         client = instructor.patch(OpenAI())
     else:
         client = instructor.patch(OpenAI(api_key=openai_api_key))
-
-    prompt = (f"Translate this swiss german to english and german: {text}. "
-              f"Indicate True if the input text is in swiss german. If you can't tell it probably should be False."
-              f"Indicate what dialect the input text could be. Wallis is called wallis and graubunden is called grisons. "
-              f"If it could be any dialect or it is in general swiss german, list it as ['general']."
-              f"If you get it right you will get a bonus."
-              f""
-              f"Here is an example of an input text: 'Zum Znüni hät's feine Schoggigipfeli gha, da chame würkli nid klage.'"
-              f"en_translation: 'For the morning snack, there were delicious chocolate croissants, you really can't complain.'"
-              f"de_translation: 'Zum Frühstückssnack gab es leckere Schokoladencroissants, da kann man wirklich nicht klagen.'"
-              f"is_swiss_german: True"
-              f"dialects: ['general']"
-              f"Here is another example of an input text: 'Ich gang go poschte und ich chauf e Töggeli.'"
-              f"en_translation: 'I'm going shopping and I'm buying a table soccer game.'"
-              f"de_translation: 'Ich gehe einkaufen und ich kaufe ein Tischfussballspiel.'"
-              f"is_swiss_german: True"
-              f"dialects: ['zurich']"
-              f"Here is another example of an input text: 'Bischt au nüd tschold as s Bolve chlepft'"
-              f"en_translation: 'You're not exactly intelligent'"
-              f"de_translation: 'Du bist nicht gerade intelligent'"
-              f"is_swiss_german: True"
-              f"dialects: ['appenzell']")
-
     translated: Translation = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="ft:gpt-3.5-turbo-0125:personal::90E5ll9l",
         response_model=Translation,
         messages=[
-            {"role": "user", "content": prompt},
+            {"role": "user", "content": text},
         ],
         max_retries=2,
     )
