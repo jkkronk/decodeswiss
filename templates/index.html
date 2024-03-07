@@ -72,6 +72,14 @@
             min-height: 20px;
             font-size: 40px;
         }
+        #flag {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 13px;
+            left: 0;
+            visibility: visible;
+        }
         #swissWideImage {
             position: absolute;
             width: 20px;
@@ -291,11 +299,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
-    <h1>🇨🇭 Swiss German Translator (Beta) 🇨🇭</h1>
+    <h1>-Swiss German Translator (Beta)-</h1>
     <div id="container">
         <div class="input-text">
             <div class="kanton" id="imageContainer">
-                🇨🇭
+                <img id="flag" src="/static/swiss.png" alt="swiss">
                 <img id="swissWideImage" src="/static/swiss_all.png" alt="Swiss Wide">
                 <img id="bernImage" src="/static/bern.png" alt="Bernese Dialect">
                 <img id="baselImage" src="/static/basel.png" alt="Basel Dialect">
