@@ -20,25 +20,25 @@ class TranslationModel(db.Model):
     de_translation = db.Column(db.String, nullable=False)
     dialects = db.Column(db.String, nullable=False)
 
-
+# Create the database
 with app.app_context():
     db.create_all()
 
-
+# Get the existing translation from the database
 def get_existing_translation(text):
     translation = TranslationModel.query.filter_by(original_text=text).first()
     if translation:
         return translation
     return None
 
-
+# Save the translation to the database
 def save_translation(text, en_translation, de_translation, dialects):
     new_translation = TranslationModel(original_text=text, en_translation=en_translation, de_translation=de_translation,
                                        dialects=str(dialects))
     db.session.add(new_translation)
     db.session.commit()
 
-
+# Base translation model for the translation
 class Translation(BaseModel):
     """
     A class that represents the translation of a swiss german text.
@@ -51,7 +51,7 @@ class Translation(BaseModel):
                                                  "But for Basel and Solothurn it should be in this format ['basel', 'solothurn']."
                                                  "But for Zurich only it should be in this format ['zurich'].")
 
-
+# Define the main translation function that uses the chatgpt 3.5 model to translate the text
 def translate_text(text, openai_api_key=None):
     if openai_api_key == "":
         client = instructor.patch(OpenAI())
@@ -86,12 +86,12 @@ def translate_text(text, openai_api_key=None):
 
     return translated
 
-
+# Define the main route
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
+# Define the route for the translation
 @app.route('/translate', methods=['POST'])
 def translate():
     # Extract text and language information from the JSON request
@@ -164,7 +164,7 @@ def translate():
         'is_obwalden_dialect': list2bool(result.dialects, 'obwalden'),
     })
 
-
+# From a list of dialects, check if a specific city is in the list
 def list2bool(dialects, city):
     dialects = [dialect.lower() for dialect in dialects]
     dialects = [dialect.replace('ü', 'u') for dialect in dialects]
@@ -176,7 +176,7 @@ def list2bool(dialects, city):
         return True
     return False
 
-
+# Check if the number of translations for today has been reached and update the count if necessary
 def check_and_update_count():
     '''
     OBS: THIS IS A NON-OPTIMAL SOLUTION. IT WOULD BE BETTER TO USE A DATABASE TO STORE THE COUNT.
@@ -202,6 +202,6 @@ def check_and_update_count():
         json.dump(data, f)
     return True
 
-
+# Run the app
 if __name__ == '__main__':
     app.run(debug=True)
