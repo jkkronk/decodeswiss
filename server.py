@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, request, jsonify, render_template
 from openai import OpenAI
 import instructor
@@ -58,7 +60,7 @@ def translate_text(text, openai_api_key=None):
     else:
         client = instructor.patch(OpenAI(api_key=openai_api_key))
     translated: Translation = client.chat.completions.create(
-        model="ft:gpt-3.5-turbo-0125:personal::90E5ll9l",
+        model=os.environ.get("DECODE_SWISS_MODEL"),
         response_model=Translation,
         messages=[
             {"role": "user", "content": text},
