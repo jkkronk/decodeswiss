@@ -57,6 +57,12 @@
             align-items: center;
             font-size: 16px;
         }
+        .output-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 16px;
+        }
         .kanton {
             position: relative;
             margin: 0px 10px 0;
@@ -65,6 +71,14 @@
             align-self: flex-start;
             min-height: 20px;
             font-size: 40px;
+        }
+        #swissWideImage {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 13px;
+            left: 0;
+            visibility: hidden;
         }
         #bernImage {
             position: absolute;
@@ -210,12 +224,6 @@
             left: 0;
             visibility: hidden;
         }
-        .output-text {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 16px;
-        }
         .lan-buttons-area {
             flex-direction: row;
             align-items: start;
@@ -267,15 +275,28 @@
         .footer a:hover {
             text-decoration: underline;
         }
+        @media (max-width: 768px) {
+            #container {
+                flex-direction: column; /* Changes layout to vertical on mobile */
+            }
+            textarea, #translationOutput, .input-text, .output-text, .text {
+                width: 90%;
+            }
+            .translate-button {
+                margin: 20px auto;
+            }
+        }
+    }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
-    <h1>🇨🇭 Swiss German Translator 🇨🇭</h1>
+    <h1>🇨🇭 Swiss German Translator (Beta) 🇨🇭</h1>
     <div id="container">
         <div class="input-text">
             <div class="kanton" id="imageContainer">
                 🇨🇭
+                <img id="swissWideImage" src="/static/swiss_all.png" alt="Swiss Wide">
                 <img id="bernImage" src="/static/bern.png" alt="Bernese Dialect">
                 <img id="baselImage" src="/static/basel.png" alt="Basel Dialect">
                 <img id="solothurnImage" src="/static/solothurn.png" alt="Solothurn Dialect">
@@ -294,7 +315,7 @@
                 <img id="schwyzImage" src="/static/schwyz.png" alt="Schwyz Dialect">
                 <img id="obwaldenImage" src="/static/obwalden.png" alt="Obwalden Dialect">
             </div>
-            <label for="text"></label><textarea class="text" id="text" name="text"></textarea>
+            <label for="text"></label><textarea class="text" id="text" name="text" maxlength="600"></textarea>
         </div>
         <button class="translate-button" onclick="translateText()">Translate</button>
         <div class="output-text">
@@ -307,12 +328,12 @@
     </div>
     <!-- CHANGE THE LINKS BELOW -->
     <div class="footer">
-        <a href="https://github.com/jkkronk/swissdic" target="_blank"><i class="fab fa-github"></i></a> |
+        <a href="https://github.com/jkkronk/decodeswiss" target="_blank"><i class="fab fa-github"></i></a> |
         <span>&copy; 2024 All rights reserved<a href="mailto:jonatan.kronander+swiss@gmail.com">Jonatan Kronander</a></span> |
         <a href="http://tracking.preply.com/aff_c?offer_id=14&aff_id=5858" target="_blank">Learn Swiss German!</a> |
-        <a href="https://twitter.com/intent/tweet?text=Check+out+this+Swiss+German+Translator!&url=https://swissdic.onrender.com" target="_blank"><i class="fab fa-twitter"></i></a> |
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://swissdic.onrender.com" target="_blank"><i class="fab fa-facebook"></i></a> |
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://swissdic.onrender.com&title=Check+out+this+Swiss+German+Translator!&summary=Amazing+tool+for+translating+text+to+Swiss+German.&source=LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://twitter.com/intent/tweet?text=Check+out+this+Swiss+German+Translator!&url=https://decodeswiss.onrender.com" target="_blank"><i class="fab fa-twitter"></i></a> |
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://decodeswiss.onrender.com" target="_blank"><i class="fab fa-facebook"></i></a> |
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://decodeswiss.onrender.com&title=Check+out+this+Swiss+German+Translator!&summary=Amazing+tool+for+translating+text+to+Swiss+German.&source=LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
     </div>
 
     <script>
@@ -369,25 +390,50 @@
                             translations.de = response.de_translation;
                             // Display based on the selected language
                             output.textContent = selectedLanguage === 'en' ? translations.en : translations.de;
-                            // Correct dialect/kantonal images
+
                             resetDialectImagesVisibilityAndPosition();
-                            handleDialectImageVisibilityAndPosition('bernImage', response.is_bernese_dialect);
-                            handleDialectImageVisibilityAndPosition('baselImage', response.is_basel_dialect);
-                            handleDialectImageVisibilityAndPosition('solothurnImage', response.is_solothurn_dialect);
-                            handleDialectImageVisibilityAndPosition('aargauImage', response.is_aargau_dialect);
-                            handleDialectImageVisibilityAndPosition('lucerneImage', response.is_lucerne_dialect);
-                            handleDialectImageVisibilityAndPosition('zugImage', response.is_zug_dialect);
-                            handleDialectImageVisibilityAndPosition('zurichImage', response.is_zurich_dialect);
-                            handleDialectImageVisibilityAndPosition('stgallenImage', response.is_stgallen_dialect);
-                            handleDialectImageVisibilityAndPosition('thurgauImage', response.is_thurgau_dialect);
-                            handleDialectImageVisibilityAndPosition('appenzellImage', response.is_appenzell_dialect);
-                            handleDialectImageVisibilityAndPosition('schaffhausenImage', response.is_schaffhausen_dialect);
-                            handleDialectImageVisibilityAndPosition('grisonsImage', response.is_grisons_dialect);
-                            handleDialectImageVisibilityAndPosition('wallisImage', response.is_wallis_dialect);
-                            handleDialectImageVisibilityAndPosition('glarusImage', response.is_glarus_dialect);
-                            handleDialectImageVisibilityAndPosition('uriImage', response.is_uri_dialect);
-                            handleDialectImageVisibilityAndPosition('schwyzImage', response.is_schwyz_dialect);
-                            handleDialectImageVisibilityAndPosition('obwaldenImage', response.is_obwalden_dialect);
+
+                            let count = 0;
+                            if (response.is_bernese_dialect) count++;
+                            if (response.is_basel_dialect) count++;
+                            if (response.is_solothurn_dialect) count++;
+                            if (response.is_aargau_dialect) count++;
+                            if (response.is_lucerne_dialect) count++;
+                            if (response.is_zug_dialect) count++;
+                            if (response.is_zurich_dialect) count++;
+                            if (response.is_stgallen_dialect) count++;
+                            if (response.is_thurgau_dialect) count++;
+                            if (response.is_appenzell_dialect) count++;
+                            if (response.is_schaffhausen_dialect) count++;
+                            if (response.is_grisons_dialect) count++;
+                            if (response.is_wallis_dialect) count++;
+                            if (response.is_glarus_dialect) count++;
+                            if (response.is_uri_dialect) count++;
+                            if (response.is_schwyz_dialect) count++;
+                            if (response.is_obwalden_dialect) count++;
+
+                            if (count > 5) {
+                                // if all dialects are true then shown swiss wide
+                                handleDialectImageVisibilityAndPosition('swissWideImage', true);
+                            } else {
+                                handleDialectImageVisibilityAndPosition('bernImage', response.is_bernese_dialect);
+                                handleDialectImageVisibilityAndPosition('baselImage', response.is_basel_dialect);
+                                handleDialectImageVisibilityAndPosition('solothurnImage', response.is_solothurn_dialect);
+                                handleDialectImageVisibilityAndPosition('aargauImage', response.is_aargau_dialect);
+                                handleDialectImageVisibilityAndPosition('lucerneImage', response.is_lucerne_dialect);
+                                handleDialectImageVisibilityAndPosition('zugImage', response.is_zug_dialect);
+                                handleDialectImageVisibilityAndPosition('zurichImage', response.is_zurich_dialect);
+                                handleDialectImageVisibilityAndPosition('stgallenImage', response.is_stgallen_dialect);
+                                handleDialectImageVisibilityAndPosition('thurgauImage', response.is_thurgau_dialect);
+                                handleDialectImageVisibilityAndPosition('appenzellImage', response.is_appenzell_dialect);
+                                handleDialectImageVisibilityAndPosition('schaffhausenImage', response.is_schaffhausen_dialect);
+                                handleDialectImageVisibilityAndPosition('grisonsImage', response.is_grisons_dialect);
+                                handleDialectImageVisibilityAndPosition('wallisImage', response.is_wallis_dialect);
+                                handleDialectImageVisibilityAndPosition('glarusImage', response.is_glarus_dialect);
+                                handleDialectImageVisibilityAndPosition('uriImage', response.is_uri_dialect);
+                                handleDialectImageVisibilityAndPosition('schwyzImage', response.is_schwyz_dialect);
+                                handleDialectImageVisibilityAndPosition('obwaldenImage', response.is_obwalden_dialect);
+                            }
                         } else {
                             resetDialectImagesVisibilityAndPosition()
                             output.textContent = 'Translation failed. Are you sure this is swiss german?';
@@ -404,7 +450,7 @@
         }
 
         function resetDialectImagesVisibilityAndPosition() {
-            const dialectImages = ['bernImage', 'baselImage', 'solothurnImage', 'aargauImage', 'lucerneImage',
+            const dialectImages = ['swissWideImage', 'bernImage', 'baselImage', 'solothurnImage', 'aargauImage', 'lucerneImage',
             'zugImage', 'zurichImage', 'stgallenImage', 'thurgauImage', 'appenzellImage', 'schaffhausenImage',
             'grisonsImage', 'wallisImage', 'glarusImage', 'uriImage', 'schwyzImage', 'obwaldenImage'];
             dialectImages.forEach((id) => {
