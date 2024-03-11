@@ -65,12 +65,28 @@
         }
         .kanton {
             position: relative;
-            margin: 0px 10px 0;
+            margin: 9px 10px 0;
             flex-direction: row;
             align-items: start;
             align-self: flex-start;
             min-height: 20px;
             font-size: 40px;
+        }
+        #flag {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            top: 0;
+            left: 0;
+            visibility: visible;
+        }
+        #flag_2 {
+            position: relative;
+            width: 35px;
+            height: 25px;
+            top: 2px;
+            left: 0;
+            visibility: visible;
         }
         #swissWideImage {
             position: absolute;
@@ -246,12 +262,13 @@
             background-color: #b00;
         }
         .lan_button {
+            text-align: center;
             align-items: start;
             cursor: pointer;
             padding: 5px 10px;
             border: none;
             background-color: #f2f2f2;
-            border-radius: 5px;
+            border-radius: 2px;
             color: #fff;
             font-size: 30px;
             transition: background-color 0.3s ease;
@@ -291,11 +308,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
-    <h1>🇨🇭 Swiss German Translator (Beta) 🇨🇭</h1>
+    <h1>- Swiss German Translator (Beta) -</h1>
     <div id="container">
         <div class="input-text">
             <div class="kanton" id="imageContainer">
-                🇨🇭
+                <img id="flag" src="/static/swiss_flag.png" alt="ch">
                 <img id="swissWideImage" src="/static/swiss_all.png" alt="Swiss Wide">
                 <img id="bernImage" src="/static/bern.png" alt="Bernese Dialect">
                 <img id="baselImage" src="/static/basel.png" alt="Basel Dialect">
@@ -320,8 +337,8 @@
         <button class="translate-button" onclick="translateText()">Translate</button>
         <div class="output-text">
             <div class="lan-buttons-area">
-                <button class="lan_button" onclick="setLanguage('en')">🇬🇧</button>
-                <button class="lan_button" onclick="setLanguage('de')">🇩🇪</button>
+                <button class="lan_button" onclick="setLanguage('en')"><img id="flag_2" src="/static/eng_flag.png" alt="en"></button>
+                <button class="lan_button" onclick="setLanguage('de')"><img id="flag_2" src="/static/de_flag.png" alt="de"></button>
             </div>
             <div id="translationOutput"></div>
         </div>
