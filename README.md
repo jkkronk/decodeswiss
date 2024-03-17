@@ -1,7 +1,21 @@
 # Swiss German Translator
 ```diff
 LIVE: https://decodeswiss.onrender.com/
-```
+                                                
+             .___
+           __|   \_
+       .__/        |
+    __/     _      \
+   /      _| |_     \._
+  /      |_   _|        \
+ /         |_|           |
+/  _         .         /
+| | \       /|    __//
+|/   \    _/  \ /
+      \__/     .
+               
+```                                    
+                                                  
 
 ## Introduction
 
